@@ -1,4 +1,4 @@
-import type { Item } from "../types/item";
+import { Item } from "@/types/item";
 
 export type ApiResponse = {
   items: Item[];
