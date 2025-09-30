@@ -7,14 +7,14 @@ export function useAsyncAutocomplete(pageSize = 20) {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState<Item[]>([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const debouncedSearch = useRef(
     debounce((val: string) => {
       setOptions([]);
-      setPage(1);
+      setPage(0);
       setHasMore(true);
       setError(null);
       loadItems(val, 1);
@@ -28,11 +28,11 @@ export function useAsyncAutocomplete(pageSize = 20) {
 
       setLoading(true);
       try {
-        const data = await fetchItems(query, currentPage, pageSize);
+        const data = await fetchItems(query, currentPage * pageSize, pageSize);
         setOptions((prev) =>
           currentPage === 1 ? data.users : [...prev, ...data.users]
         );
-        setHasMore(data.skip * data.limit < data.total);
+        setHasMore(data.skip < data.total);
         setPage(currentPage);
       } catch (err: unknown) {
         if (err instanceof Error) console.error(err.message);
@@ -46,7 +46,7 @@ export function useAsyncAutocomplete(pageSize = 20) {
 
   useEffect(() => {
     if (open) {
-      loadItems(inputValue, 1);
+      loadItems(inputValue, 0);
     }
   }, [open, loadItems]);
 
