@@ -11,6 +11,15 @@ export function useAsyncAutocomplete(pageSize = 20) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
+  const debouncedSearch = useRef(
+    debounce((val: string) => {
+      setOptions([]);
+      setPage(1);
+      setHasMore(true);
+      setError(null);
+      loadItems(val, 1);
+    }, 900)
+  ).current;
 
   const loadItems = useCallback(
     async (query: string, currentPage: number) => {
@@ -21,9 +30,9 @@ export function useAsyncAutocomplete(pageSize = 20) {
       try {
         const data = await fetchItems(query, currentPage, pageSize);
         setOptions((prev) =>
-          currentPage === 1 ? data.items : [...prev, ...data.items]
+          currentPage === 1 ? data.users : [...prev, ...data.users]
         );
-        setHasMore(data.page * data.limit < data.total);
+        setHasMore(data.skip * data.limit < data.total);
         setPage(currentPage);
       } catch (err: unknown) {
         if (err instanceof Error) console.error(err.message);
@@ -32,24 +41,14 @@ export function useAsyncAutocomplete(pageSize = 20) {
         setLoading(false);
       }
     },
-    [loading, hasMore, pageSize]
+    [hasMore, pageSize]
   );
-
-  const debouncedSearch = useRef(
-    debounce((val: string) => {
-      setOptions([]);
-      setPage(1);
-      setHasMore(true);
-      setError(null);
-      loadItems(val, 1);
-    }, 300)
-  ).current;
 
   useEffect(() => {
     if (open) {
       loadItems(inputValue, 1);
     }
-  }, [open, inputValue, loadItems]);
+  }, [open, loadItems]);
 
   const onScroll = (e: React.UIEvent<HTMLUListElement>) => {
     const el = e.currentTarget;
