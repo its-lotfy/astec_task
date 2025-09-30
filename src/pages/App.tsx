@@ -9,7 +9,7 @@ function App() {
     <main style={{ padding: 20 }}>
       <h1>تست Autocomplete</h1>
       <AsyncAutocomplete value={selected} onChange={setSelected} />
-      {selected && <p>انتخاب شده: {selected.name}</p>}
+      {selected && <p>انتخاب شده: {selected.firstName}</p>}
     </main>
   );
 }
