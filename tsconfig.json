@@ -3,6 +3,8 @@
     "target": "ES5",
     "lib": ["DOM", "ES2015"],
     "module": "commonjs",
+    "jsx": "react-jsx",
+
     "strict": true,
     "baseUrl": ".",
     "paths": {
