@@ -1,7 +1,7 @@
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
-import { useAsyncAutocomplete } from "@/hooks/useAsyncAutocomplete";
-import OptionItem from "./OptionItem";
-import type { Item } from "@/types/item";
+import type { Item } from "../../types/item.ts";
+import { useAsyncAutocomplete } from "../../hooks/useAsyncAutocomplete.ts";
+import OptionItem from "./OptionItem.tsx";
 
 type Props = {
   value: Item | null;

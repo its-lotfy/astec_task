@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { fetchItems } from "@/api/itemsApi";
-import { Item } from "@/types/item";
-import { debounce } from "@/utils/debounce";
+import type { Item } from "../types/item.ts";
+import { fetchItems } from "../api/itemsApi.ts";
+import { debounce } from "../utils/debounce.ts";
 
 export function useAsyncAutocomplete(pageSize = 20) {
   const [open, setOpen] = useState(false);

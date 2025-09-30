@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { Item } from "@/types/item";
+import type { Item } from "../../types/item.ts";
 
 export default function OptionItem({ option }: { option: Item }) {
   return (

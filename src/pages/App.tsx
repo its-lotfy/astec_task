@@ -1,6 +1,6 @@
 import { useState } from "react";
-import AsyncAutocomplete from "@/components/UI/AsyncAutocomplete";
-import type { Item } from "@/types/item";
+import AsyncAutocomplete from "../components/UI/AsyncAutocomplete.tsx";
+import type { Item } from "../types/item.ts";
 
 function App() {
   const [selected, setSelected] = useState<Item | null>(null);
