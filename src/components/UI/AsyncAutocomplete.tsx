@@ -17,12 +17,12 @@ export default function AsyncAutocomplete({ value, onChange }: Props) {
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.firstName}
       options={options}
       loading={loading}
       value={value}
       onChange={(_, val) => onChange(val)}
-      filterOptions={(x) => x}
+      filterOptions={(options = []) => options}
       ListboxProps={{
         onScroll,
         style: { maxHeight: 300, overflow: "auto" },
