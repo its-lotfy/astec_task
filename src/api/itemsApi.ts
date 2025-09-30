@@ -1,20 +1,20 @@
 import type { Item } from "../types/item.ts";
 
 export type ApiResponse = {
-  items: Item[];
+  users: Item[];
   total: number;
-  page: number;
+  skip: number;
   limit: number;
 };
 
 export async function fetchItems(
   query: string,
-  page: number,
+  skip: number,
   limit: number
 ): Promise<ApiResponse> {
-  const url = new URL("https://example.com/api/items");
+  const url = new URL(`https://dummyjson.com/users${query && "/search"}`);
   url.searchParams.set("q", query);
-  url.searchParams.set("page", String(page));
+  url.searchParams.set("skip", String(skip));
   url.searchParams.set("limit", String(limit));
 
   const res = await fetch(url.toString());
