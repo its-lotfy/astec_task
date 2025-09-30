@@ -17,7 +17,7 @@ export default function AsyncAutocomplete({ value, onChange }: Props) {
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
-      getOptionLabel={(option) => option.firstName}
+      getOptionLabel={(option) => option.lastName}
       options={options}
       loading={loading}
       value={value}
